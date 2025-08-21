@@ -1,0 +1,13 @@
+langchain
+langchain-core
+langchain-community
+InstructorEmbedding
+qdrant-client 
+fastembed
+python-dotenv
+langchain-qdrant
+unstructured
+pdfplumber
+langchain-google-genai
+fastapi[all]
+
