@@ -11,4 +11,4 @@ unstructured
 pdfplumber
 langchain-google-genai
 fastapi[all]
-
+tiktoken

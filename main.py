@@ -33,11 +33,30 @@ class ChatResponse(BaseModel):
 
 @app.get("/")
 async def health_check():
+    """Health Check, ensures the server is running fine!"""
     return JSONResponse(content={"success": True})
 
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(req: ChatRequest):
+    """
+    Handles a chat request by normalizing message input, invoking the RAG pipeline,
+    and returning the assistant's response.
+
+    This endpoint:
+    - Accepts a ChatRequest object containing one or more chat messages.
+    - Normalizes the message(s) into a list of dictionaries.
+    - Passes the conversation to a retrieval-augmented generation (RAG) agent.
+    - Extracts and returns the assistant's final reply.
+
+    Parameters:
+        req (ChatRequest): The incoming request object containing chat messages.
+                           `req.messages` may be a single message or a list of messages.
+
+    Returns:
+        ChatResponse: A response object containing the assistant's reply as a `Message`.
+                      If the assistant did not return a reply, a default message is used.
+    """
     # Normalize to list of dicts
     if isinstance(req.messages, list):
         conversation = [msg.model_dump() for msg in req.messages]
